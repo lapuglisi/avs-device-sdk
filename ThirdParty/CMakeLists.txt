@@ -1,0 +1,6 @@
+if (USE_DEFAULT_RAPIDJSON)
+    add_subdirectory("rapidjson")
+endif()
+add_subdirectory("MultipartParser")
+add_subdirectory("bluez-alsa")
+add_subdirectory("pkcs11-2.40")

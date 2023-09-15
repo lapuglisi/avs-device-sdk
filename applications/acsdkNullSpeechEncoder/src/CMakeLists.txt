@@ -1,0 +1,6 @@
+add_definitions("-DACSDK_LOG_MODULE=acsdkNullSpeechEncoder")
+add_library(acsdkNullSpeechEncoder SpeechEncoderComponent.cpp)
+target_link_libraries(acsdkNullSpeechEncoder PUBLIC acsdkAudioEncoderComponent acsdkAudioEncoderInterfaces)
+
+# install target
+asdk_install_targets(acsdkNullSpeechEncoder FALSE)

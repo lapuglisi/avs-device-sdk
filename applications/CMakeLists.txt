@@ -1,0 +1,40 @@
+cmake_minimum_required(VERSION 3.1 FATAL_ERROR)
+
+add_subdirectory("acsdkApplicationAudioPipelineFactoryInterfaces")
+add_subdirectory("acsdkAudioInputStream")
+add_subdirectory("acsdkDefaultDeviceSettingsManager")
+add_subdirectory("acsdkDefaultInternetConnectionMonitor")
+add_subdirectory("acsdkDefaultSampleApplicationOptions")
+add_subdirectory("acsdkLibcurlAlexaCommunications")
+add_subdirectory("acsdkLibcurlHTTPContentFetcher")
+add_subdirectory("acsdkNullMetricRecorder")
+add_subdirectory("acsdkNullSystemTimeZone")
+add_subdirectory("acsdkSampleApplicationCBLAuthRequester")
+add_subdirectory("acsdkSampleApplicationInterfaces")
+add_subdirectory("FeatureClients")
+
+if (BLUETOOTH_ENABLED)
+    if (BLUETOOTH_BLUEZ)
+        add_subdirectory(acsdkBlueZBluetoothImplementation)
+    endif()
+else()
+    add_subdirectory(acsdkNullBluetoothImplementation)
+endif()
+
+if (GSTREAMER_MEDIA_PLAYER)
+    add_subdirectory("acsdkGstreamerApplicationAudioPipelineFactory")
+elseif(ANDROID_MEDIA_PLAYER)
+    add_subdirectory("acsdkAndroidApplicationAudioPipelineFactory")
+elseif(CUSTOM_MEDIA_PLAYER)
+    add_subdirectory("acsdkCustomApplicationAudioPipelineFactory")
+endif()
+
+if(ACSDKSPEECHENCODER_LIB STREQUAL acsdkOpusSpeechEncoder)
+    # Build component only if OPUS-based audio encoder is used.
+    add_subdirectory("acsdkOpusSpeechEncoder")
+endif()
+if(ACSDKSPEECHENCODER_LIB STREQUAL acsdkNullSpeechEncoder)
+    # Build component only if audio encoder is not used.
+    add_subdirectory("acsdkNullSpeechEncoder")
+endif()
+
